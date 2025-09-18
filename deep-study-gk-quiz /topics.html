@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Topics</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+  	body {
+ 	   background-color: #e0f7fa; /* हल्का आसमानी रंग */
+    	background-image: linear-gradient(135deg, #e0f7fa 0%, #c8e6c9 100%); /* आसमानी से हल्के हरे रंग का ग्रेडिएंट */
+  	}
+	</style>
+
+</head>
+<body>
+  <div class="header-bar">
+    <button class="back-btn" onclick="goBack()">⬅ Back</button>
+    <span id="subject-title">📚 Topics</span>
+  </div>
+  
+  <div class="topics-container" id="topics-list">
+    <div class="loader"></div>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const subject = urlParams.get("subject") || "history";
+    document.getElementById("subject-title").textContent = "📚 " + subject.toUpperCase().replace(/_/g, ' ');
+
+	async function loadTopics() {
+ 	  const list = document.getElementById("topics-list");
+	  try {
+   	    const versionResponse = await fetch('version.json');
+   	    const serverVersionData = await versionResponse.json();
+  	    const serverVersion = serverVersionData.topicsVersion;
+
+	    // पहले लोकल स्टोरेज से डेटा को स्ट्रिंग के रूप में प्राप्त करें
+	    const localVersion = localStorage.getItem('topicsVersion');
+	    const cachedData = localStorage.getItem('topicsData');
+
+ 	    // अब जाँचें कि डेटा मौजूद है और संस्करण सही है
+ 	    if (localVersion === serverVersion && cachedData) {
+     	  console.log("Loading topics from cache (localStorage).");
+     	  // केवल तभी पार्स करें जब डेटा मौजूद हो
+  	      const topicsData = JSON.parse(cachedData);
+  	      displayTopics(topicsData);
+	    } else {
+  	      console.log("Fetching new topics from server.");
+   	      const topicsResponse = await fetch('subjects/topics.json');
+   	      const topicsData = await topicsResponse.json();
+      
+   	      localStorage.setItem('topicsData', JSON.stringify(topicsData));
+  	      localStorage.setItem('topicsVersion', serverVersion);
+      
+   	      displayTopics(topicsData);
+   	    }
+	  } catch (err) {
+	    console.error(err);
+	    list.innerHTML = "<p>टॉपिक्स लोड करने में विफल।</p>";
+	  }
+	}
+
+	function displayTopics(allTopicsData) {
+  	  const urlParams = new URLSearchParams(window.location.search);
+  	  const subject = urlParams.get("subject");
+  	  const topicsForSubject = allTopicsData[subject];
+  	  const list = document.getElementById("topics-list");
+   	  list.innerHTML = "";
+
+  	  if (topicsForSubject && topicsForSubject.length > 0) {
+   	    topicsForSubject.forEach(topic => {
+        	const card = document.createElement("div");
+       	    card.className = "topic-card";
+        	card.textContent = topic.name;
+         	card.onclick = () => {
+            	window.location.href = `quiz.html?subject=${subject}&topic=${topic.file}`;
+        	};
+        	list.appendChild(card);
+     	  });
+  	  } else {
+	      list.innerHTML = "<p>इस विषय के लिए कोई टॉपिक उपलब्ध नहीं है।</p>";
+	    }
+	}
+
+	loadTopics();
+	
+	function goBack() {
+	  window.location.href = 'subjects.html';
+	}
+  </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deep Study</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#001f3f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Deep Study">
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+</head>
+<body class="gradient-animated">
+
+  <section id="entryPage">
+    <h1 class="welcome-text">
+      WELCOME <br> To Your <br> 🎉DREAM🎉
+    </h1>
+    <button class="start-btn">Start →</button>
+  </section>
+  
+  <script>
+    window.onload = function() {
+      const quizProgress = JSON.parse(localStorage.getItem('quizProgress'));
+      const startBtn = document.querySelector('.start-btn');
+
+      // यह जांच करेगा कि क्या कोई क्विज़ अधूरा है
+      if (quizProgress && quizProgress.subject) {
+        startBtn.textContent = "Resume Quiz 🚀";
+        startBtn.onclick = function() {
+          window.location.href = `quiz.html?subject=${quizProgress.subject}&topic=${quizProgress.topic}`;
+        };
+      } 
+      // यदि नहीं, तो यह सामान्य रूप से विवरण पृष्ठ पर जाएगा
+      else {
+        startBtn.onclick = function() {
+          window.location.href = 'study.html';
+        };
+      }
+    };
+  </script>
+
+</body>
+</html>

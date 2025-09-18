@@ -1,0 +1,314 @@
+/* ==================
+   General Styles & Body
+   ================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ==================
+   Backgrounds & Animations
+   ================== */
+body.gradient-animated {
+  background: linear-gradient(270deg, #ff7e5f, #feb47b, #6a11cb, #2575fc);
+  background-size: 800% 800%;
+  animation: gradientMove 20s ease infinite;
+}
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px #ff7e5f, 0 0 20px #feb47b, 0 0 40px #ff7e5f; }
+  to   { text-shadow: 0 0 20px #6a11cb, 0 0 40px #2575fc, 0 0 60px #6a11cb; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%, 75% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+}
+.shake { animation: shake 0.3s; }
+
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ==================
+   Page Section Layout
+   ================== */
+section {
+  position: absolute; top: 0; left: 0;
+  height: 100%; width: 100%;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  overflow: hidden;
+}
+
+/* ==================
+   Entry Page (index.html)
+   ================== */
+.welcome-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 3em; font-weight: 700; text-align: center; color: #ffffff;
+  line-height: 1.4;
+  text-shadow: 0 0 10px #ff7e5f, 0 0 20px #feb47b, 0 0 40px #ff7e5f;
+  animation: glow 3s ease-in-out infinite alternate;
+}
+.start-btn {
+  padding: 10px 25px; font-size: 1rem; border: none;
+  background: #003366; color: white; border-radius: 20px;
+  cursor: pointer; transition: 0.3s;
+}
+.start-btn:hover {
+  background: #001a33; color: #ffcc00;
+}
+
+/* ==================
+   Study Page (study.html)
+   ================== */
+#studyPage { color: white; text-align: center; }
+h2 { font-size: 2rem; margin-bottom: 15px; color: #ffcc00; }
+.shayari { font-style: italic; margin-bottom: 25px; font-size: 1rem; padding: 0 15px; }
+
+form { display: flex; flex-direction: column; gap: 15px; width: 90%; max-width: 400px; }
+input, textarea {
+  padding: 12px; border-radius: 10px; border: none; outline: none;
+  font-size: 1rem; text-align: center;
+}
+label {
+  font-size: 1rem; margin: 5px 0; color: #ffcc00;
+  font-weight: bold; display: block; text-align: left;
+}
+textarea { resize: none; }
+.continue-btn {
+  padding: 12px; font-size: 1.1rem; background: #ffcc00; color: black;
+  border-radius: 20px; cursor: pointer; border: none; transition: 0.3s;
+}
+.continue-btn:hover { background: #ff9900; }
+.info-btn {
+  position: absolute; bottom: 15px; right: 15px;
+  font-size: 0.9rem; padding: 8px 15px; border-radius: 20px;
+  border: none; background: rgba(255,255,255,0.2); color: white; cursor: pointer;
+}
+
+/* ==================
+   Subjects Page (subjects.html)
+   ================== */
+#subjectPage {
+  flex-direction: column;
+  background: repeating-linear-gradient(135deg, #dfe9f3, #dfe9f3 20px, #f6f9fc 20px, #f6f9fc 40px);
+  color: #222; align-items: stretch;
+}
+.topbar {
+  background: #001f3f; color: limegreen; padding: 10px;
+  text-align: center; font-weight: bold; font-size: 1.2rem; width: 100%;
+}
+.shayari-box {
+  background: rgba(255,255,255,0.7); border: 2px solid #333;
+  border-radius: 12px; padding: 20px; margin: 20px;
+  text-align: center; font-style: italic; font-weight: bold; font-size: 1rem;
+}
+.heading { display: block; margin-top: 10px; font-weight: bold; font-size: 1.3rem; text-align: center; }
+.divider { width: 60%; margin: 0 auto 15px; border-bottom: 2px solid #888; }
+
+.subject-list {
+  flex: 1; overflow-y: auto; padding: 15px;
+  display: flex; flex-direction: column; gap: 15px; width: 100%;
+}
+.subject-box {
+  background: white; padding: 18px; border-radius: 12px;
+  font-weight: bold; font-size: 1.1rem; text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer;
+}
+.subject-box:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.2); }
+
+/* ==================
+   Header Bar (Topics, Quiz, Dashboard)
+   ================== */
+.header-bar {
+  background: #1e3a8a;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-size: 1.3em;
+  font-weight: bold;
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 50px; /* हेडर की सही ऊंचाई के लिए */
+}
+
+.header-bar > span {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 150px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.back-btn {
+  background: #2563eb; color: white; border: none;
+  padding: 6px 12px; border-radius: 5px; cursor: pointer;
+  position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+}
+
+/* क्विज़ पेज के हेडर के लिए विशेष स्टाइल */
+body > .header-bar {
+  justify-content: space-between;
+}
+body > .header-bar > .shayari {
+  color: white;
+  font-style: italic;
+  text-align: center;
+}
+
+
+/* ==================
+   Topics Page (topics.html)
+   ================== */
+.topics-container {
+  flex: 1; display: flex; flex-direction: column;
+  gap: 15px; padding: 20px; align-items: center;
+}
+.topic-card {
+  background: white; width: 90%; max-width: 500px;
+  padding: 15px; border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  font-size: 1.1em; cursor: pointer; text-align: center;
+  transition: transform 0.2s, background 0.2s;
+}
+.topic-card:hover {
+  background: #f1f5f9; transform: translateY(-3px);
+}
+
+/* ==================
+   Dashboard Page (dashboard.html)
+   ================== */
+#history-container {
+  padding: 20px; display: flex;
+  flex-direction: column; gap: 15px;
+}
+.history-card {
+  background: white; padding: 15px; border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-left: 5px solid #1e3a8a;
+}
+.history-card h3 { margin: 0 0 5px 0; color: #1e3a8a; }
+.history-card p { margin: 0; color: #333; }
+.score { font-weight: bold; font-size: 1.1em; }
+.date { font-size: 0.9em; color: #555; text-align: right; }
+.card-body {
+  display: flex; justify-content: space-between;
+  align-items: center; margin-bottom: 10px;
+}
+.card-info h3, .card-info p { margin: 0; }
+.revision-btn {
+  background-color: #1e3a8a; color: white; border: none;
+  padding: 8px 15px; border-radius: 5px; cursor: pointer;
+  font-size: 0.9em; font-weight: bold; transition: background-color 0.2s;
+  flex-shrink: 0; margin-left: 10px;
+}
+.revision-btn:hover { background-color: #2563eb; }
+
+/* ==================
+   Quiz Page (quiz.html)
+   ================== */
+.timer { font-size: 1.2em; font-weight: bold; color: #22c55e; }
+.topic-bar {
+  background: #f1f5f9; color: #1e293b; font-weight: bold;
+  padding: 12px; text-align: center; font-size: 1.2em;
+}
+.quiz-container { padding: 20px; text-align: center; }
+.question-box {
+  background: white; padding: 15px; border-radius: 10px;
+  margin-bottom: 20px; font-size: 1.2em;
+  box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
+}
+.options { display: flex; flex-direction: column; gap: 10px; }
+.option-btn {
+  background: #e2e8f0; padding: 12px; border-radius: 8px;
+  border: none; cursor: pointer; font-size: 1em; transition: 0.3s;
+}
+.option-btn:hover { background: #cbd5e1; }
+.option-btn.correct { background: #22c55e; color: white; }
+.option-btn.wrong { background: #ef4444; color: white; }
+.option-btn.skip {
+  background: #64748b;
+  color: white;
+}
+.option-btn.skip:hover {
+  background: #475569;
+}
+
+
+/* ==================
+   Result Box
+   ================== */
+.result-box {
+  padding: 20px; text-align: center; margin: 20px;
+  background-color: transparent; box-shadow: none;
+}
+.result-card-details {
+  background: white; padding: 25px; border-radius: 15px;
+  text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  border-top: 5px solid #1e3a8a;
+}
+.result-topic { font-size: 1.4em; color: #1e3a8a; margin: 0 0 10px 0; }
+.result-message {
+  font-size: 1.1em; font-style: italic;
+  color: #333; margin-bottom: 25px;
+}
+.stats-container {
+  display: flex; flex-direction: column;
+  gap: 12px; text-align: left;
+}
+.stat-row {
+  display: flex; justify-content: space-between;
+  font-size: 1.1em; padding: 8px;
+  border-radius: 5px; background-color: #f1f5f9;
+}
+.stat-label { font-weight: bold; color: #334155; }
+.stat-value { font-weight: bold; }
+.stat-value.correct { color: #22c55e; }
+.stat-value.wrong { color: #ef4444; }
+.stat-value.unattempted { color: #64748b; }
+
+/* ==================
+   Toast Notification
+   ================== */
+.toast-notification {
+  visibility: hidden; min-width: 250px;
+  background-color: #333; color: #fff;
+  text-align: center; border-radius: 5px;
+  padding: 16px; position: fixed;
+  z-index: 100; left: 50%;
+  transform: translateX(-50%);
+  bottom: 30px; opacity: 0;
+  transition: opacity 0.5s, bottom 0.5s;
+}
+.toast-notification.show {
+  visibility: visible; opacity: 1; bottom: 50px;
+}
